@@ -1,8 +1,9 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import Tickets from './tickets';
+import { origin } from './origin';
 
 const tickets = [
   {
@@ -117,30 +118,38 @@ const tickets = [
   }];
 
 const server = setupServer(
-  rest.get('/tickets', (req, res, ctx) => res(ctx.json(tickets))),
+  rest.get(`${origin}/tickets`, (req, res, ctx) => res(ctx.json(tickets))),
 );
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
-test('Loads and displays tickets', async () => {
-  const { queryAllByTestId } = render(<Tickets />);
-
-  expect(queryAllByTestId('card')).toHaveLength(10);
-  tickets.forEach((t, i) => {
-    expect(queryAllByTestId('subject')[i]).toHaveTextContent(t);
-  });
-});
-
 test('Handles server error', async () => {
   server.use(
-    rest.get('/tickets', (req, res, ctx) => res(ctx.status(500))),
+    rest.get(`${origin}/tickets`, (req, res, ctx) => res(ctx.status(500))),
   );
 
   render(<Tickets />);
 
   const error = screen.getByText('500 Error: Could not load tickets. Please refresh the page.');
 
-  expect(error).toBeInTheDocument();
+  await waitFor(() => { expect(error).toBeInTheDocument(); });
+});
+
+test('Loads and displays tickets', async () => {
+  render(<Tickets />);
+
+  expect(screen.getByText('Loading...')).toBeInTheDocument();
+
+  await waitFor(() => {
+    expect(!screen.getByText('Loading...').toBeInTheDocument());
+  });
+
+  await waitFor(() => {
+    expect(screen.getAllByTestId('card')).toHaveLength(10);
+    tickets.forEach((t, i) => {
+      expect(screen.getAllByTestId('subject')[i]).toHaveTextContent(t);
+    });
+  });
 });
