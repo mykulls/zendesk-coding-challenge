@@ -51,3 +51,7 @@ button.active {
 .card .requested {
   width: 180px;
 }
+
+.card .priority {
+  width: 80px;
+}
