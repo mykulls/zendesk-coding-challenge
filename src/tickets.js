@@ -49,10 +49,10 @@ export default function Tickets() {
                 <span className="priority">Priority</span>
               </div>
               {tickets[page].map((t, index) => (
-                <div className="card-container" key={t.id}>
+                <div className="card-container" key={t.id} data-testid="card">
                   <div className="card">
                     <span className="id">{t.id}</span>
-                    <span className="subject">{t.subject}</span>
+                    <span className="subject" data-testid="subject">{t.subject}</span>
                     <span className="requested">{`${getDateString(new Date(t.created_at))} ${getTimeString(new Date(t.created_at))}`}</span>
                     <span className="priority">{t.priority}</span>
                     <button
