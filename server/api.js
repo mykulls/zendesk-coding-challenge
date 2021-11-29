@@ -9,7 +9,6 @@ const headers = {
 };
 
 router.get('/tickets', (req, res) => {
-  const link = 'https://zccmshi.zendesk.com/api/v2/tickets.json?page[size]=25';
   const tickets = [];
 
   function getPage(url) {
@@ -31,9 +30,13 @@ router.get('/tickets', (req, res) => {
       });
   }
 
-  getPage(link);
+  if (res.statusCode === 200) {
+    const link = 'https://zccmshi.zendesk.com/api/v2/tickets.json?page[size]=25';
 
-  // need response error handling
+    getPage(link);
+  } else {
+    res.json({ error: `${res.statusCode} Error: Could not load tickets. Please refresh the page.` });
+  }
 });
 
 module.exports = router;
