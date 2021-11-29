@@ -38,14 +38,14 @@ export default function Tickets() {
       {tickets.length > 0 ? (
         <div>
           <div className="card card-header">
-            <span className="ïd">ID</span>
+            <span className="id">ID</span>
             <span className="subject">Subject</span>
             <span className="requested">Date Requested</span>
             <span className="priority">Priority</span>
           </div>
           {tickets[page].map((t) => (
             <div className="card" key={t.id}>
-              <span className="ïd">{t.id}</span>
+              <span className="id">{t.id}</span>
               <span className="subject">{t.subject}</span>
               <span className="requested">{`${getDateString(new Date(t.created_at))} ${getTimeString(new Date(t.created_at))}`}</span>
               <span className="priority">{t.priority}</span>

@@ -22,5 +22,32 @@ button.active {
 }
 
 .card {
+  display: flex;
   margin-bottom: 8px;
+  border: 1px black solid;
+  padding: 4px;
+}
+
+.card span {
+  text-align: left;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 4px;
+}
+
+.card.card-header {
+  font-weight: bold;
+}
+
+.card .id {
+  text-align: center;
+  width: 40px;
+}
+.card .subject {
+  width: calc(20vw + 200px);
+}
+
+.card .requested {
+  width: 180px;
 }
