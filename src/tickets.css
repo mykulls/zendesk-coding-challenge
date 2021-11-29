@@ -21,14 +21,15 @@ button.active {
   text-underline-offset: 0.25em;
 }
 
-.card {
-  display: flex;
+.card-container {
   margin-bottom: 8px;
   border: 1px black solid;
   padding: 4px;
+  display: flex;
+  flex-direction: column;
 }
 
-.card span {
+.card-container span {
   text-align: left;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -36,22 +37,50 @@ button.active {
   padding: 4px;
 }
 
-.card.card-header {
+.card-header {
+  flex-direction: row;
   font-weight: bold;
 }
 
-.card .id {
+.card-container .id {
   text-align: center;
   width: 40px;
 }
-.card .subject {
-  width: calc(20vw + 200px);
+.card-container .subject {
+  width: 30vw;
 }
 
-.card .requested {
+.card-container .requested {
   width: 180px;
 }
 
-.card .priority {
+.card-container .priority {
   width: 80px;
+}
+
+.card-container button {
+  width: 110px;
+}
+
+.card {
+  display: flex;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+}
+
+.details span {
+  overflow: visible;
+  white-space: normal;
+}
+
+.details .description {
+  margin-left: 20px;
+  width: 420px;
+}
+
+.details .tags {
+  width: 120px;
 }

@@ -32,6 +32,8 @@ router.get('/tickets', (req, res) => {
   }
 
   getPage(link);
+
+  // need response error handling
 });
 
 module.exports = router;

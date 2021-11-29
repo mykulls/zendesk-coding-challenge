@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <header>
         <img src={logo} alt="Zendesk Logo" className="logo-img" />
-        <h1>Open Tickets</h1>
+        <h1>Tickets in Account</h1>
       </header>
       <Tickets />
     </div>
